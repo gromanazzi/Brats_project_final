@@ -2,19 +2,19 @@
 % Viene chiesto all'utente di selezionare il tipo di operazione da
 % effettuare e vengono richiamate le relative classi/funzioni
 src_folder = 'src';
-sourceDataLoc = "..\Task01_BrainTumour";
+sourceDataLoc = "Task01_BrainTumour";
 out_dir = 'output';
 if ~exist(out_dir,'dir')
     mkdir(out_dir);
 end 
 
 
-preprocessDataLoc = "..\preprocessedDataset";
+preprocessDataLoc = "preprocessedDataset";
 if ~exist(preprocessDataLoc,'dir')
     mkdir(preprocessDataLoc);
 end
 
-net_dir = "..\trained_nets";
+net_dir = "trained_nets";
 if ~exist(net_dir,'dir')
     mkdir(net_dir);
 end
