@@ -23,8 +23,7 @@ switch answer
             [file, path] = uigetfile("*.mat", "Select the label", path_labelsGT);
             lblLocTest = fullfile(path, file);
         end
-%         [file, path] = uigetfile("*.mat", "Seleziona la label (in formato mat)","..\preprocessedDataset\labelsTest");
-%         lblLocTest = fullfile(path, file);
+
     case 'Cartella Test'
         volLocTest = fullfile(path_img);
         lblLocTest = fullfile(path_labelsGT);
@@ -86,9 +85,8 @@ while hasdata(voldsTest)
     blockConfMat.ImageNumber = imageIdx.*ones(height(blockConfMat),1);
     datasetConfMat = [datasetConfMat;blockConfMat]; %#ok<AGROW> 
     
-    
     fprintf("Iteration %d of %d complete\n", imageIdx, size(voldsTest.Files, 1));
-    imageIdx = imageIdx + 1;    
+    imageIdx = imageIdx + 1;
 end
 
 [metrics,blockMetrics] = evaluateSemanticSegmentation( ...

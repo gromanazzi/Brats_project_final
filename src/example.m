@@ -1,5 +1,3 @@
-%prova di utilizzo di una rete preaddestrata
-
 %cartella di lavoro
 dataDir = fullfile("..\");
 if ~exist(fullfile(dataDir,"trained_nets"), 'dir')
@@ -23,9 +21,7 @@ if not(exist(netFileFullPath,"file"))
 else
     disp("U-Net already present")
 end
-%fine download rete
 
-%carica i dati in memoria
 load(netFileFullPath);
 
 %download esempi
@@ -39,7 +35,6 @@ if ~exist(imageDataLocation, 'dir')
 else
     fprintf("Examples already present\n");
 end
-%fine download esempi
 
 testDir = fullfile(dataDir,'sampleBraTSTestSetValid');
 data = load(fullfile(testDir, "imagesTest/", "BraTS446.mat"));
@@ -58,6 +53,7 @@ networkOutputSize = net.Layers(strcmpi({net.Layers.Name},"output")).OutputSize;
 blockSize = [networkOutputSize(1:3) networkInputSize(end)];
 borderSize = (networkInputSize(1:3) - blockSize(1:3))/2;
 
+batchSize = 1;
 results = apply(bim, ...
     semanticsegBlock, ...
     BlockSize=blockSize, ...

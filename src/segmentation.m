@@ -72,7 +72,7 @@ zSliceGT = labeloverlay(volTest(:,:,zID),volTestLabels(:,:,zID));
 zSlicePred = labeloverlay(volTest(:,:,zID),predictedLabels(:,:,zID));
 
 fig = figure;
-hShow = montage({zSliceGT,zSlicePred},Size=[1 2],BorderSize=5);
+montage({zSliceGT,zSlicePred},Size=[1 2],BorderSize=5);
 
 set(fig,'WindowKeyPressFcn',@KeyPressCb);
 title("Labeled Ground Truth (Left) vs. Network Prediction (Right)")
