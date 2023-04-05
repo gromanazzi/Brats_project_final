@@ -3,12 +3,14 @@ path_labelsGT = "..\preprocessedDataset\labelsTest";
 path_labelsPred = "..\output\labelsPredict";
 
 %selezione rete
+waitfor(msgbox('Select the net'));
 [file, path]=uigetfile("*.mat", "Select the net","..\trained_nets");
 load(fullfile(path, file));
 cust_ext = split(file, '-');
 cust_ext = cust_ext{end};
 
 %selezione immagine e label
+waitfor(msgbox('Select the volume'));
 [file, path]=uigetfile("*.mat", "Select the volume", path_img);
 img = load(fullfile(path, file));
 [~, name, ~] = fileparts(file);
@@ -20,9 +22,9 @@ end
 
 if exist(fullfile(path_labelsGT, file), "file")
     label = load(fullfile(path_labelsGT, file));
-    waitfor(msgbox('Label and volume successfully loaded'));
+    waitfor(msgbox('Ground Truth Label and volume successfully loaded'));
 else 
-    waitfor(msgbox('Label not found, please select it manually'));
+    waitfor(msgbox('Ground Truth Label not found, please select it manually'));
     [file, path] = uigetfile("*.mat", "Select the label", path_labelsGT);
     label = load(fullfile(path, file));
 end
@@ -39,6 +41,7 @@ if exist(fullfile(path_labelsPred, myfile), "file") && strcmp(questdlg('Predicte
     predictedLabels = predictedLabels.predictedLabels;
 else
     % Segmentazione
+    msgbox('Segmentation started');
     bim = blockedImage(volTest);
     semanticsegBlock = @(bstruct)semanticseg(bstruct.Data,net);
     
@@ -70,8 +73,8 @@ slices_tot = size(volTest,3);
 zID = size(volTest,3)/2;
 zSliceGT = labeloverlay(volTest(:,:,zID),volTestLabels(:,:,zID));
 zSlicePred = labeloverlay(volTest(:,:,zID),predictedLabels(:,:,zID));
-
-fig = figure;
+waitfor(msgbox(["Segmentation complete"; ...
+    "Use up and down arrow on the keyboard to navigate trough the slices"]));fig = figure;
 montage({zSliceGT,zSlicePred},Size=[1 2],BorderSize=5);
 
 set(fig,'WindowKeyPressFcn',@KeyPressCb);

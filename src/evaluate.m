@@ -13,13 +13,14 @@ answer = questdlg('Effettuare la valutazione su', ...
 
 switch answer
     case 'Singolo File'
+        waitfor(msgbox('Select the volume'));
         [file, path] = uigetfile("*.mat", "Seleziona l'immagine (in formato mat)","..\preprocessedDataset\imagesTest");
         volLocTest = fullfile(path, file);
         if exist(fullfile(path_labelsGT, file), "file")
             lblLocTest = fullfile(path_labelsGT, file);
-            waitfor(msgbox('Label and volume successfully loaded'));
+            waitfor(msgbox('Ground Truth Label and volume successfully loaded'));
         else 
-            waitfor(msgbox('Label not found, please select manually'));
+            waitfor(msgbox('Ground Truth Label not found, please select manually'));
             [file, path] = uigetfile("*.mat", "Select the label", path_labelsGT);
             lblLocTest = fullfile(path, file);
         end
@@ -29,6 +30,7 @@ switch answer
         lblLocTest = fullfile(path_labelsGT);
 end
 
+waitfor(msgbox('Select the net'));
 [file, path]=uigetfile("*.mat", "Select the net","..\trained_nets");
 load(fullfile(path, file));
 cust_ext = split(file, '-');
